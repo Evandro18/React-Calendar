@@ -1,0 +1,57 @@
+.App {
+  font-family: sans-serif;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 500px;
+}
+
+.calendar {
+  width: 70%;
+  height: 450px;
+  background-color: white;
+  box-shadow: 1px 4px 4px gray;
+}
+
+.header {
+  display: flex;
+  padding: 1em;
+  background: #306c34;
+  color: #fafafa;
+  flex-wrap: wrap;
+}
+
+.header-container {
+  display: flex;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.header-item {
+  flex-grow: 1;
+}
+
+.header-item-grow-2 {
+  flex-grow: 2;
+}
+
+.header-item-align-left {
+  text-align: left;
+}
+
+.header-year {
+  font-weight: 500;
+  font-size: 1em;
+}
+
+.header-date {
+  font-size: 2rem;
+  font-family: Roboto;
+}
+
+.margin-item {
+  margin: 0.5rem 0.5rem;
+}

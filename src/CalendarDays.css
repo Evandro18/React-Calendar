@@ -1,0 +1,33 @@
+.calendar-days {
+  display: flex;
+  width: 100%;
+}
+
+.calendar-days-item {
+  flex-grow: 1;
+  font-size: 1rem;
+  color: gray;
+}
+
+.calendar-days-item-spacing-day {
+  margin: 1rem;
+}
+
+.calendar-days-numbers {
+  flex-grow: 1;
+  font-size: 1rem;
+  color: gray;
+}
+
+.calendar-day-months {
+  display: flex;
+  width: 100%;
+  flex-flow: wrap;
+}
+
+.calendar-days-numbers {
+  flex-grow: 1;
+  min-width: 3rem;
+  font-size: 1rem;
+  color: black;
+}
