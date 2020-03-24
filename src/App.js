@@ -48,7 +48,11 @@ export default function App({ weekDayNames, monthNames, date }) {
           dayNames={weekDayNames ? weekDayNames : dayNames}
           months={monthNames ? monthNames : months}
         />
-        <CalendarDays weekDays={dayNames} month={month} />
+        <CalendarDays
+          weekDays={dayNames}
+          month={month}
+          currentDate={currentDate}
+        />
       </div>
     </div>
   );

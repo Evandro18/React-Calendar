@@ -1,16 +1,20 @@
 import React from "react";
 import "./CalendarDays.css";
 
-export default function CalendarDays({ weekDays = [], month }) {
+export default function CalendarDays({
+  weekDays = [],
+  month,
+  currentDate = new Date()
+}) {
   const weekIndexs = Object.keys(month).map(el => el);
-  // console.log(weekIndexs);
   const getWeekDays = indexDay => {
     return weekIndexs.map(week => {
+      let classes = "calendar-days-item-spacing-day";
+      if (month[week][indexDay] === currentDate.getDay()) {
+        classes += " calendar-days-number-color-black";
+      }
       return (
-        <div
-          className="calendar-days-item-spacing-day"
-          key={`current-day-${indexDay}`}
-        >
+        <div className={classes} key={`current-day-${indexDay}`}>
           {month[week][indexDay]}
         </div>
       );
