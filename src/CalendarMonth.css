@@ -1,0 +1,36 @@
+.calendar-months-container {
+  width: 100%;
+  padding: 1rem;
+  justify-content: space-between;
+}
+
+.calendar-arrows {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-weight: 600;
+  color: gray;
+}
+
+.calendar-month-text {
+  color: #333;
+  text-align: center;
+}
+
+.display-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar-month-buttons {
+}
+
+/* @keyframes button {
+  from {}
+} */
+
+/* .calendar-month-buttons:active {
+  background: #999;
+  border: ;
+} */

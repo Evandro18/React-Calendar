@@ -1,0 +1,51 @@
+.custom-button {
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.custom-circle-button {
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.custom-button:active {
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+.custom-button:hover {
+  border: none;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  padding: 0.5em;
+}
+
+/* Ripple effect */
+.ripple {
+  width: 100%;
+  background-position: center;
+  transition: background 0.8s;
+  border: none;
+}
+.ripple:hover {
+  border: none;
+  background: transparent radial-gradient(circle, transparent 1%, #fff 1%)
+    center/15000%;
+}
+.ripple:active {
+  background-color: gray;
+  background-size: 100%;
+  transition: background 0s;
+  border: none;
+}

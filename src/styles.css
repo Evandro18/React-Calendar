@@ -8,8 +8,7 @@
 }
 
 .calendar {
-  width: 70%;
-  height: 450px;
+  height: 500px;
   background-color: white;
   box-shadow: 1px 4px 4px gray;
 }
@@ -54,4 +53,8 @@
 
 .margin-item {
   margin: 0.5rem 0.5rem;
+}
+
+.flex-grow-1 {
+  flex-grow: 1;
 }

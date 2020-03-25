@@ -1,11 +1,12 @@
+import ParserDate from './ParseDate'
 const returnFebruaryLengthDays = year => {
-  if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) return 29;
-  return 28;
-};
+  if ((year % 4 === 0 && year % 100 !== 0) || year % 400 === 0) return 29
+  return 28
+}
 
-export default (date = new Date()) => {
-  const year = date.getFullYear();
-  const month = date.getMonth() + 1;
+export default (date = new ParserDate()) => {
+  const year = date.get('year')
+  const month = date.get('month') + 1
   const monthsDaysLengh = {
     1: 31,
     2: returnFebruaryLengthDays(year),
@@ -19,7 +20,7 @@ export default (date = new Date()) => {
     10: 31,
     11: 30,
     12: 31
-  };
+  }
 
-  return monthsDaysLengh[month];
-};
+  return monthsDaysLengh[month]
+}

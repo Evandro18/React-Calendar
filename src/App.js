@@ -1,59 +1,91 @@
-import React, { useState, useEffect } from "react";
-import "./styles.css";
-import CalendarHeader from "./CalendarHeader";
-import CalendarDays from "./CalendarDays";
-import getMonthsLength from "./getDaysInMonth";
-import { dayNames, monthNames as months } from "./contants";
+import React, { useState, useEffect, useCallback } from 'react'
+import './styles.css'
+import CalendarHeader from './CalendarHeader'
+import CalendarDays from './CalendarDays'
+import MonthsSelect from './MonthsSelect'
+import ParserDate from './ParseDate'
+import getMonthsLength from './getDaysInMonth'
+import { dayNames, monthNames as months } from './contants'
 
 export default function App({ weekDayNames, monthNames, date }) {
-  const [year, setYear] = useState(new Date().getFullYear());
-  const [currentDate, setDate] = useState(new Date("2020-03-04"));
-  const [month, setMonth] = useState({});
+  const [currentDate, setDate] = useState(new ParserDate())
+  const [month, setMonth] = useState(null)
 
-  const buildMonth = () => {
-    const daysInMonth = getMonthsLength(currentDate);
-    const weekLength = 7;
-    const qtdWeek = Math.ceil(daysInMonth / weekLength);
-    const weeks = [...new Array(qtdWeek)].map((_, i) => i + 1);
-    const daysByWeek = [...new Array(weekLength)].map((_, i) => i + 1);
-    let count = 1;
-    const generateMonth = {};
+  const buildMonthCallback = useCallback(() => {
+    const daysInMonth = getMonthsLength(currentDate)
+    const tempDate = new ParserDate(currentDate)
+    tempDate.set('date', 1)
+    const firstWeekDayOfMonth = tempDate.get('day') + 1
+    const weekLength = 7
+    const qtdWeek = Math.ceil(daysInMonth / weekLength)
+    const weeks = [...new Array(qtdWeek)].map((_, i) => i + 1)
+    const daysByWeek = [...new Array(weekLength)].map((_, i) => i + 1)
+    let count = 1
+    let generateMonth = null
     for (const weekIndex of weeks) {
-      if (!generateMonth[weekIndex]) generateMonth[weekIndex] = {};
       // eslint-disable-next-line
       const currentWeek = daysByWeek.reduce((acc, dayIndex) => {
-        if (count <= daysInMonth) {
-          acc[dayIndex] = count++;
+        if (dayIndex >= firstWeekDayOfMonth && !generateMonth) {
+          generateMonth = {}
+          if (!generateMonth[weekIndex]) generateMonth[weekIndex] = {}
+          acc[dayIndex] = count
         }
-        return acc;
-      }, {});
-      generateMonth[weekIndex] = currentWeek;
+        if (count <= daysInMonth && generateMonth) {
+          if (!generateMonth[weekIndex]) generateMonth[weekIndex] = {}
+          acc[dayIndex] = count++
+        }
+        return acc
+      }, {})
+      generateMonth[weekIndex] = currentWeek
     }
-    setMonth(generateMonth);
-  };
+    setMonth(generateMonth)
+  }, [currentDate])
 
   useEffect(() => {
     if (date !== currentDate) {
-      buildMonth();
-      setDate(date);
+      const newDate = date ? new ParserDate(date.toString()) : currentDate
+      setDate(newDate)
+      buildMonthCallback()
     }
-  }, [date, setDate, currentDate]);
+  }, [date, setDate, currentDate, buildMonthCallback])
+
+  function onChange(value) {
+    const newDate = new ParserDate(currentDate)
+    newDate.set('month', value)
+    setDate(newDate)
+    buildMonthCallback()
+  }
+
+  const onChangeDate = value => () => {
+    if (value) {
+      const newDate = new ParserDate(currentDate)
+      newDate.set('date', value)
+      setDate(newDate)
+    }
+  }
 
   return (
-    <div className="App">
-      <div className="calendar">
+    <div className='App'>
+      <div className='calendar'>
         <CalendarHeader
           currentDate={currentDate}
-          currentYear={year}
+          currentYear={currentDate.getFullYear()}
           dayNames={weekDayNames ? weekDayNames : dayNames}
           months={monthNames ? monthNames : months}
         />
+        <MonthsSelect
+          currentDate={currentDate}
+          currentMonth={currentDate.get('month')}
+          months={monthNames ? monthNames : months}
+          onChange={onChange}
+        />
         <CalendarDays
           weekDays={dayNames}
-          month={month}
+          month={month || {}}
           currentDate={currentDate}
+          onChange={onChangeDate}
         />
       </div>
     </div>
-  );
+  )
 }

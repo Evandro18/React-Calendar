@@ -11,6 +11,7 @@
 
 .calendar-days-item-spacing-day {
   margin: 1rem;
+  padding: 0.5rem;
 }
 
 .calendar-days-numbers {
@@ -22,6 +23,7 @@
 
 .calendar-days-number-color-black {
   color: #f0f0f0;
+  border-radius: 5px;
   background-color: #306c34;
 }
 
