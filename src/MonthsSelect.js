@@ -33,7 +33,7 @@ export default function MonthsSelect({ currentDate, months, onChange }) {
           </Button>
         </div>
         <div className='calendar-month-text flex-grow-1'>{monthYearStr}</div>
-        <div className='flex-grow-1 display-flex'>
+        <div className='flex-grow-1 flex-end'>
           <Button onClick={onChangeMonth(1)}>
             <ArrowLeft />
           </Button>

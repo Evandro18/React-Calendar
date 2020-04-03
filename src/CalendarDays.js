@@ -18,7 +18,7 @@ export default function CalendarDays({
       return (
         <div
           className={classes}
-          key={`current-day-${indexDay}`}
+          key={`current-day-${month[week][indexDay]}`}
           onClick={onChange(month[week][indexDay])}
         >
           {month[week][indexDay]}

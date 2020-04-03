@@ -2,6 +2,7 @@
   width: 100%;
   padding: 1rem;
   justify-content: space-between;
+  box-sizing: border-box;
 }
 
 .calendar-arrows {
@@ -21,6 +22,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.flex-end {
+  display: flex;
+  justify-content: flex-end;
 }
 
 .calendar-month-buttons {

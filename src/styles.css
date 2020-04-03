@@ -1,16 +1,16 @@
 .App {
   font-family: sans-serif;
   text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 500px;
+  box-sizing: border-box;
+  width: fit-content;
+  margin: 0 auto;
 }
 
 .calendar {
   height: 500px;
   background-color: white;
   box-shadow: 1px 4px 4px gray;
+  box-sizing: border-box;
 }
 
 .header {
