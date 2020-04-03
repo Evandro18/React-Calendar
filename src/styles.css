@@ -6,6 +6,13 @@
   margin: 0 auto;
 }
 
+
+@media only screen and (max-width: 600px) {
+  .App {
+    width: auto;
+  }
+}
+
 .calendar {
   height: 500px;
   background-color: white;
