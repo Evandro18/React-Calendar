@@ -40,8 +40,7 @@
 }
 .ripple:hover {
   border: none;
-  background: transparent radial-gradient(circle, transparent 1%, #fff 1%)
-    center/15000%;
+  background: transparent radial-gradient(circle, transparent 1%, #fff 1%) center/15000%;
 }
 .ripple:active {
   background-color: gray;

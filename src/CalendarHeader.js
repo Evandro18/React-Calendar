@@ -3,12 +3,7 @@ import './styles.css'
 import Year from './Years'
 import ParseDate from './ParseDate'
 
-export default function CalendarHeader({
-  currentYear,
-  currentDate,
-  dayNames,
-  months
-}) {
+export default function CalendarHeader({ currentYear, currentDate, dayNames, months }) {
   const formattedDate = new ParseDate(currentDate).format({ dayNames, months })
   return (
     <>

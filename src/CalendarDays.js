@@ -8,9 +8,9 @@ export default function CalendarDays({
   currentDate = new ParserDate(),
   onChange
 }) {
-  const getWeekDays = indexDay => {
-    const weekIndexs = Object.keys(month).map(el => el)
-    return weekIndexs.map(week => {
+  const getWeekDays = (indexDay) => {
+    const weekIndexs = Object.keys(month).map((el) => el)
+    return weekIndexs.map((week) => {
       let classes = 'calendar-days-item-spacing-day'
       if (month[week][indexDay] === currentDate.get('date')) {
         classes += ' calendar-days-number-color-black'

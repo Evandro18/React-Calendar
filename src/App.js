@@ -56,7 +56,7 @@ export default function App({ weekDayNames, monthNames, date }) {
     buildMonthCallback()
   }
 
-  const onChangeDate = value => () => {
+  const onChangeDate = (value) => () => {
     if (value) {
       const newDate = new ParserDate(currentDate)
       newDate.set('date', value)
