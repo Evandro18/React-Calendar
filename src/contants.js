@@ -13,7 +13,15 @@ export const monthNames = [
   'December'
 ]
 
-export const dayNames = ['Sanday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+export const dayNames = [
+  'Sanday',
+  'Monday',
+  'Tuesday',
+  'Wednesday',
+  'Thursday',
+  'Friday',
+  'Saturday'
+]
 export default {
   monthNames
 }
