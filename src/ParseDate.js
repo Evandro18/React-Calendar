@@ -1,6 +1,7 @@
 export default class CustomDate extends Date {
   constructor(date) {
-    super(date ? new Date(date) : new Date())
+    const currentDate = date ? new Date(date) : new Date()
+    super(currentDate)
   }
 
   format({ dayNames = [], months = [] }) {
