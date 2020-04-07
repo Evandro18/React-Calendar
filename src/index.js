@@ -1,6 +1,6 @@
 import App from './App'
 
-export default { AppCalendar: App }
+export const AppCalendar = App
 // const rootElement = document.getElementById('root')
 // ReactDOM.render(
 //   <React.StrictMode>
