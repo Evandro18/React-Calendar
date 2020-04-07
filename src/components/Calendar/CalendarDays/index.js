@@ -1,6 +1,6 @@
 import React from 'react'
-import './css/CalendarDays.css'
-import ParserDate from './ParseDate'
+import '../../../css/CalendarDays.css'
+import ParserDate from '../../../utils/ParseDate'
 
 export default function CalendarDays({
   currentYear,
