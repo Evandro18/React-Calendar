@@ -1,6 +1,7 @@
 export default class CustomDate extends Date {
   constructor(date) {
-    super(date ? new Date(date) : new Date())
+    const currentDate = date ? new Date(date) : new Date()
+    super(currentDate)
   }
 
   format({ dayNames = [], months = [] }) {
@@ -10,8 +11,8 @@ export default class CustomDate extends Date {
 
   set(key, value) {
     const options = {
-      month: data => this.setMonth(data),
-      date: data => this.setDate(data)
+      month: (data) => this.setMonth(data),
+      date: (data) => this.setDate(data)
     }
 
     const func = options[key]

@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import './styles.css'
+import './css/styles.css'
 import CalendarHeader from './CalendarHeader'
 import CalendarDays from './CalendarDays'
 import MonthsSelect from './MonthsSelect'
 import ParserDate from './ParseDate'
 import getMonthsLength from './getDaysInMonth'
-import { dayNames, monthNames as months } from './contants'
+import { dayNames, monthNames as months, ENUM_TYPES } from './contants'
 
-export default function App({ weekDayNames, monthNames, date }) {
+export default function App({ weekDayNames, monthNames, date, type = 'onlydate' }) {
+  const [dates, setDates] = useState(new Map([[new ParserDate().toJSON(), new ParserDate()]]))
   const [currentDate, setDate] = useState(new ParserDate())
   const [month, setMonth] = useState(null)
 
@@ -42,9 +43,7 @@ export default function App({ weekDayNames, monthNames, date }) {
   }, [currentDate])
 
   useEffect(() => {
-    if (date !== currentDate) {
-      const newDate = date ? new ParserDate(date.toString()) : currentDate
-      setDate(newDate)
+    if (!date) {
       buildMonthCallback()
     }
   }, [date, setDate, currentDate, buildMonthCallback])
@@ -56,12 +55,88 @@ export default function App({ weekDayNames, monthNames, date }) {
     buildMonthCallback()
   }
 
-  const onChangeDate = value => () => {
+  const onChangeDate = (value) => () => {
     if (value) {
       const newDate = new ParserDate(currentDate)
       newDate.set('date', value)
+      if (ENUM_TYPES[type] === ENUM_TYPES.onlydate) {
+        setDate(newDate)
+      }
+      if (ENUM_TYPES[type] === ENUM_TYPES.selector) {
+        setDate(newDate)
+        let values = new Map([...dates])
+        values = upsertDateValues(values, newDate)
+        setDates(values)
+      }
+      if (ENUM_TYPES[type] === ENUM_TYPES.range) {
+        let values = new Map()
+        let datesCopy = [...dates]
+        const [, start] = datesCopy[0] ? datesCopy[0] : []
+        const [, end] = datesCopy.length -1 > 0 ? datesCopy[datesCopy.length -1] : []
+        if (start && end) {
+          values = upsertDateValues(values, newDate)
+          setDates(values)
+        }
+        const diff = diffInDays(start, newDate)
+        if (start && !end && newDate && diff >= 1) {
+          const newRange = buildRange(start, newDate)
+          newRange.forEach(el => upsertDateValues(values, el))
+          setDates(values)
+        } else if (diff <= 0){
+          values = upsertDateValues(values, newDate)
+          setDates(values)
+        }
+      }
       setDate(newDate)
     }
+  }
+
+  const buildRange = (startRange, endRange) => {
+    let countDays = startRange.getUTCDate()
+    let countMonths = startRange.get('month') < 12 ? startRange.get('month') + 1 : startRange.get('month')
+    let countYears = startRange.get('year')
+    let lastDayOfMonth = getMonthsLength(startRange)
+    const qtdRange = diffInDays(startRange, endRange)
+    const newRange = []
+    let count = 0
+    while (count < [...new Array(qtdRange + 1)].length) {
+      const strCountDays = String(countDays).length === 1 ? `0${countDays}` : countDays
+      const dateToReturn = new ParserDate(`${countYears}-${countMonths}-${strCountDays}  00:00:00`)
+      if (countDays >= lastDayOfMonth) {
+        countDays = 0
+        if (countMonths >= 12) {
+          countYears++
+          countMonths = 1
+        }
+        if (countMonths < 12) {
+          countMonths++
+          const dateOfNewMonth = new ParserDate(`${countYears}-${countMonths}-0${countDays + 1}`)
+          lastDayOfMonth = getMonthsLength(dateOfNewMonth)
+        }
+      }
+      countDays += 1
+      newRange.push(dateToReturn)
+      count++
+    }
+    return newRange
+  }
+
+  const diffInDays = (rangeStart, rangeEnd) => {
+    if (!rangeStart || !rangeEnd) return 0
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const utc1 = Date.UTC(rangeStart.get('year'), rangeStart.get('month'), rangeStart.get('date'))
+    const utc2 = Date.UTC(rangeEnd.get('year'), rangeEnd.get('month'), rangeEnd.get('date'))
+    const diffDays =  Math.floor((utc2 - utc1) / _MS_PER_DAY)
+    return diffDays
+  }
+
+  const upsertDateValues = (map, dateValue) => {
+    if (dateValue) {
+      dateValue.setHours(0, 0, 0, 0)
+      if (map.has(dateValue.toJSON())) map.delete(dateValue.toJSON())
+      else map.set(dateValue.toJSON(), dateValue)
+    }
+    return map
   }
 
   return (
@@ -80,9 +155,13 @@ export default function App({ weekDayNames, monthNames, date }) {
           onChange={onChange}
         />
         <CalendarDays
+          type={type}
+          currentMonth={currentDate.get('month')}
+          currentYear={currentDate.getFullYear()}
           weekDays={dayNames}
-          month={month || {}}
+          monthStructure={month || {}}
           currentDate={currentDate}
+          dates={dates}
           onChange={onChangeDate}
         />
       </div>

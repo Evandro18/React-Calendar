@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import './CalendarMonth.css'
+import './css/CalendarMonth.css'
 import ParserDate from './ParseDate'
 import ArrowRight from './icons/ArrowRight'
 import ArrowLeft from './icons/ArrowLeft'
@@ -17,7 +17,7 @@ export default function MonthsSelect({ currentDate, months, onChange }) {
     setMonthYearStr(strDate)
   }, [currentDate, selectMonth, months])
 
-  const onChangeMonth = to => () => {
+  const onChangeMonth = (to) => () => {
     let monthIndex = selectMonth + to
     if (monthIndex >= months.length) return
     if (monthIndex < 0) return
