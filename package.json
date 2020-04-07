@@ -1,23 +1,52 @@
 {
-  "name": "calendar",
+  "name": "custom-material-calendar",
   "version": "1.0.0",
   "description": "",
   "keywords": [],
-  "main": "src/index.js",
-  "dependencies": {
-    "react": "16.12.0",
-    "react-dom": "16.12.0",
-    "react-scripts": "3.0.1"
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
   },
+  "dependencies": {},
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-proposal-object-rest-spread": "^7.9.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@rollup/plugin-commonjs": "^11.0.2",
+    "@rollup/plugin-node-resolve": "^7.1.1",
+    "@rollup/plugin-url": "^4.0.2",
+    "@svgr/rollup": "^5.3.1",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-named-asset-import": "^0.3.6",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-preset-react-app": "^9.1.2",
+    "cross-env": "^7.0.2",
+    "css-loader": "^3.5.1",
     "eslint-config-prettier": "^6.10.1",
     "eslint-plugin-prettier": "^3.1.2",
     "prettier": "^2.0.2",
-    "typescript": "3.3.3"
+    "react-app-polyfill": "^1.0.6",
+    "rollup": "^2.3.3",
+    "rollup-plugin-babel": "^4.4.0",
+    "rollup-plugin-peer-deps-external": "^2.2.2",
+    "rollup-plugin-postcss": "^2.5.0",
+    "rollup-plugin-terser": "^5.3.0",
+    "typescript": "3.3.3",
+    "webpack": "^4.42.1"
+  },
+  "peerDependencies": {
+    "react": "16.10.2",
+    "react-dom": "16.10.2",
+    "react-scripts": "3.2.0"
   },
   "scripts": {
     "start": "export PORT=5000 && react-scripts start",
-    "build": "react-scripts build",
+    "build": "NODE_ENV=production BABEL_ENV=production rollup -c",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
@@ -26,5 +55,17 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "babel": {
+    "presets": [
+      "react-app"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-object-rest-spread",
+      "@babel/plugin-proposal-optional-chaining",
+      "@babel/plugin-syntax-dynamic-import",
+      "@babel/plugin-proposal-class-properties",
+      "transform-react-remove-prop-types"
+    ]
+  }
 }
