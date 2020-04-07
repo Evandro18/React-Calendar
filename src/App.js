@@ -142,8 +142,6 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
     return map
   }
 
-  console.log('LOG: ', dates)
-
   return (
     <div className='App'>
       <div className='calendar'>
