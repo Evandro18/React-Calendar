@@ -1,6 +1,7 @@
 export default class CustomDate extends Date {
   constructor(date) {
-    super(date ? new Date(date) : new Date())
+    const currentDate = date ? new Date(date) : new Date()
+    super(currentDate)
   }
 
   format({ dayNames = [], months = [] }) {
@@ -27,5 +28,10 @@ export default class CustomDate extends Date {
       year: this.getFullYear()
     }
     return values[key]
+  }
+
+  reset() {
+    this.setHours(0, 0, 0, 0)
+    return this
   }
 }

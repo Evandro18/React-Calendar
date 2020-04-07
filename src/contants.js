@@ -24,4 +24,11 @@ export const dayNames = [
 ]
 export default {
   monthNames
+};
+
+
+export const ENUM_TYPES = {
+  onlydate: 0,
+  range: 1,
+  selector: 2
 }
