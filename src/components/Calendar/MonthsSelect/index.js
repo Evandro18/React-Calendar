@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import './css/CalendarMonth.css'
-import ParserDate from './ParseDate'
-import ArrowRight from './icons/ArrowRight'
-import ArrowLeft from './icons/ArrowLeft'
-import Button from './Button'
+import '../../../css/CalendarMonth.css'
+import ParserDate from '../../../utils/ParseDate'
+import ArrowRight from '../../../icons/ArrowRight'
+import ArrowLeft from '../../../icons/ArrowLeft'
+import Button from '../../Button'
 
 export default function MonthsSelect({ currentDate, months, onChange }) {
   const [selectMonth, setSelectMonth] = useState(new ParserDate().get('month'))

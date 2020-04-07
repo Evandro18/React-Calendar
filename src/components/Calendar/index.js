@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useCallback } from 'react'
-import './css/styles.css'
-import CalendarHeader from './CalendarHeader'
+import '../../css/styles.css'
+import CalendarHeader from './Header'
 import CalendarDays from './CalendarDays'
 import MonthsSelect from './MonthsSelect'
-import ParserDate from './ParseDate'
-import getMonthsLength from './getDaysInMonth'
-import { dayNames, monthNames as months, ENUM_TYPES } from './contants'
+import ParserDate from '../../utils/ParseDate'
+import getMonthsLength from '../../utils/getDaysInMonth'
+import { dayNames, monthNames as months, ENUM_TYPES } from '../../utils/contants'
 
 export default function App({ weekDayNames, monthNames, date, type = 'onlydate' }) {
   const [dates, setDates] = useState(new Map([[new ParserDate().reset().toJSON(), new ParserDate()]]))
