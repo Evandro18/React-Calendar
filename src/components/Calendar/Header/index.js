@@ -1,7 +1,7 @@
 import React from 'react'
-import './css/styles.css'
-import Year from './Years'
-import ParseDate from './ParseDate'
+import '../../../css/styles.css'
+import Year from '../YearsSelect/'
+import ParseDate from '../../../utils/ParseDate'
 
 export default function CalendarHeader({ currentYear, currentDate, dayNames, months }) {
   const formattedDate = new ParseDate(currentDate).format({ dayNames, months })

@@ -29,4 +29,9 @@ export default class CustomDate extends Date {
     }
     return values[key]
   }
+
+  reset() {
+    this.setHours(0, 0, 0, 0)
+    return this
+  }
 }
