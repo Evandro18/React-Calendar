@@ -10,6 +10,7 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 export default {
+  external: ['react', 'react-dom'],
   input: 'src/index.js',
   output: [
     {
@@ -34,7 +35,11 @@ export default {
     }),
     url(),
     svgr(),
-    resolve(),
+    resolve({
+      ignoreGlobal: false,
+      include: 'node_modules/**',
+      skip: ['react', 'react-dom']
+    }),
     babel({
       presets: [
         'react-app',
@@ -49,7 +54,10 @@ export default {
       exclude: 'node_modules/**',
       runtimeHelpers: true,
     }),
-    commonjs(),
+    commonjs({
+      ignoreGlobal: false,
+      include: ['node_modules/**'],
+    }),,
     terser(),
   ],
 }
