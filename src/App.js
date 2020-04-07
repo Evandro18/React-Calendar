@@ -8,7 +8,7 @@ import getMonthsLength from './getDaysInMonth'
 import { dayNames, monthNames as months, ENUM_TYPES } from './contants'
 
 export default function App({ weekDayNames, monthNames, date, type = 'onlydate' }) {
-  const [dates, setDates] = useState(new Map([[new ParserDate().toJSON(), new ParserDate()]]))
+  const [dates, setDates] = useState(new Map([[new ParserDate().reset().toJSON(), new ParserDate()]]))
   const [currentDate, setDate] = useState(new ParserDate())
   const [month, setMonth] = useState(null)
 
@@ -82,8 +82,11 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
           const newRange = buildRange(start, newDate)
           newRange.forEach(el => upsertDateValues(values, el))
           setDates(values)
-        } else if (diff <= 0){
-          values = upsertDateValues(values, newDate)
+        }
+        if (diff <= 0){
+          if (!values.get(newDate.reset().toJSON())) {
+            values = upsertDateValues(values, newDate)
+          }
           setDates(values)
         }
       }
@@ -138,6 +141,8 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
     }
     return map
   }
+
+  console.log('LOG: ', dates)
 
   return (
     <div className='App'>
