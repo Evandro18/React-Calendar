@@ -3,14 +3,16 @@ import '../../css/styles.css'
 import CalendarHeader from './Header'
 import CalendarDays from './CalendarDays'
 import MonthsSelect from './MonthsSelect'
+import YearSelect from './YearSelect'
 import ParserDate from '../../utils/ParseDate'
 import getMonthsLength from '../../utils/getDaysInMonth'
-import { dayNames, monthNames as months, ENUM_TYPES } from '../../utils/contants'
+import { dayNames, monthNames as months, ENUM_TYPES } from '../../utils/constants'
 
 export default function App({ weekDayNames, monthNames, date, type = 'onlydate' }) {
   const [dates, setDates] = useState(new Map([[new ParserDate().reset().toJSON(), new ParserDate()]]))
   const [currentDate, setDate] = useState(new ParserDate())
   const [month, setMonth] = useState(null)
+  const [selectYear, setSelectYear] = useState(false)
 
   const buildMonthCallback = useCallback(() => {
     const daysInMonth = getMonthsLength(currentDate)
@@ -48,7 +50,13 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
     }
   }, [date, setDate, currentDate, buildMonthCallback])
 
-  function onChange(value) {
+  function onChangeYear(value) {
+    const newDate = new ParserDate(currentDate)
+    newDate.setFullYear(value)
+    setDate(newDate)
+  }
+
+  function onChangeMonth(value) {
     const newDate = new ParserDate(currentDate)
     newDate.set('month', value)
     setDate(newDate)
@@ -80,7 +88,7 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
         const diff = diffInDays(start, newDate)
         if (start && !end && newDate && diff >= 1) {
           const newRange = buildRange(start, newDate)
-          newRange.forEach(el => upsertDateValues(values, el))
+          newRange.forEach((el) => upsertDateValues(values, el))
           setDates(values)
         }
         if (diff <= 0){
@@ -109,7 +117,7 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
         countDays = 0
         if (countMonths >= 12) {
           countYears++
-          countMonths = 1
+          countMonths = 0
         }
         if (countMonths < 12) {
           countMonths++
@@ -126,10 +134,10 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
 
   const diffInDays = (rangeStart, rangeEnd) => {
     if (!rangeStart || !rangeEnd) return 0
-    const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+    const _MS_PER_DAY = 1000 * 60 * 60 * 24
     const utc1 = Date.UTC(rangeStart.get('year'), rangeStart.get('month'), rangeStart.get('date'))
     const utc2 = Date.UTC(rangeEnd.get('year'), rangeEnd.get('month'), rangeEnd.get('date'))
-    const diffDays =  Math.floor((utc2 - utc1) / _MS_PER_DAY)
+    const diffDays = Math.floor((utc2 - utc1) / _MS_PER_DAY)
     return diffDays
   }
 
@@ -142,20 +150,25 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
     return map
   }
 
-  return (
-    <div className='App'>
-      <div className='calendar'>
-        <CalendarHeader
-          currentDate={currentDate}
+  const body = () => {
+    if (selectYear) {
+      return (
+        <YearSelect
           currentYear={currentDate.getFullYear()}
-          dayNames={weekDayNames ? weekDayNames : dayNames}
-          months={monthNames ? monthNames : months}
+          onChange={(value) => {
+            onChangeYear(value)
+            setSelectYear(false)
+          }}
         />
+      )
+    }
+    return (
+      <>
         <MonthsSelect
           currentDate={currentDate}
           currentMonth={currentDate.get('month')}
           months={monthNames ? monthNames : months}
-          onChange={onChange}
+          onChange={onChangeMonth}
         />
         <CalendarDays
           type={type}
@@ -167,6 +180,21 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
           dates={dates}
           onChange={onChangeDate}
         />
+      </>
+    )
+  }
+
+  return (
+    <div className='App'>
+      <div className='calendar'>
+        <CalendarHeader
+          currentDate={currentDate}
+          currentYear={currentDate.getFullYear()}
+          dayNames={weekDayNames ? weekDayNames : dayNames}
+          months={monthNames ? monthNames : months}
+          onClick={() => setSelectYear(true)}
+        />
+        {body()}
       </div>
     </div>
   )
