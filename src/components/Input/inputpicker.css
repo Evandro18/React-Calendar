@@ -35,7 +35,7 @@
   align-items: center;
   background: #f1f1f1;
   padding: 5px 15px;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 input {
@@ -48,6 +48,7 @@ input {
   display: flex;
   background: transparent;
   border: none;
+  color: #6a6c6e;
 }
 
 .container {
@@ -59,7 +60,6 @@ input {
 }
 
 .input-label {
-  font-size: 12px;
-  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  font: inherit;
   margin-bottom: 0.5rem;
 }
