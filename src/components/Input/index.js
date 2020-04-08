@@ -5,7 +5,14 @@ import CalendarIcon from '../../icons/Calendar.js'
 import ParserDate from '../../utils/ParseDate'
 import { dayNames, monthNames } from '../../utils/constants'
 
-export default function RangePicker({ placeholder = '', value, label, onChange = () => {} }) {
+export default function RangePicker({
+  monthLabels = [],
+  dayLabels = [],
+  placeholder = '',
+  value,
+  label,
+  onChange = () => {}
+}) {
   const [open, setOpen] = useState(false)
   const [localValue, setValue] = useState('')
 
@@ -14,12 +21,18 @@ export default function RangePicker({ placeholder = '', value, label, onChange =
     if (value && !areSame && value && value instanceof Array) {
       const date1 = value[0] && new ParserDate(value[0])
       const date2 = value[value.length - 1] && new ParserDate(value[value.length - 1])
-      const newValue = `${date1.format({ dayNames, months: monthNames })} - ${date2.format({
-        dayNames,
-        months: monthNames
-      })}`
+      const newValue = [date1, date2]
+        .filter((el) => el)
+        .map((el) =>
+          el.format({
+            dayNames: dayLabels ? dayLabels : dayNames,
+            months: monthLabels ? monthLabels : monthNames
+          })
+        )
+        .join(' - ')
       setValue(newValue)
     }
+    if (!value) setValue('')
   }, [value])
 
   const onFinish = (data = []) => {
@@ -31,9 +44,8 @@ export default function RangePicker({ placeholder = '', value, label, onChange =
         months: monthNames
       })} - ${new ParserDate(date2).format({ dayNames, months: monthNames })}`
       setValue(newValue)
+      onChange(data.map(([, dateValue]) => dateValue))
     }
-
-    onChange(data)
     setOpen(false)
   }
 
@@ -58,6 +70,8 @@ export default function RangePicker({ placeholder = '', value, label, onChange =
       <div className={!open ? 'display-none' : 'backdrop'}></div>
       <div className={!open ? 'display-none' : 'backdrop-content'}>
         <Calendar
+          monthNames={monthLabels}
+          weekDayNames={dayLabels}
           type='range'
           value={localValue}
           onCancel={() => setOpen(false)}

@@ -48,6 +48,7 @@ input {
   display: flex;
   background: transparent;
   border: none;
+  color: #6a6c6e;
 }
 
 .container {
