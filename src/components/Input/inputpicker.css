@@ -1,0 +1,61 @@
+.display-none {
+  display: none;
+}
+
+.backdrop {
+  display: flex;
+  position: fixed;
+  background: rgba(0, 0, 0, 0.5);
+  -webkit-tap-highlight-color: transparent;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.backdrop-content {
+  display: flex;
+  position: fixed;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: 0 auto;
+  margin-top: 5%;
+}
+
+.content-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1f1f1;
+  padding: 5px 15px;
+  border-radius: 5px;
+}
+
+input {
+  border: none;
+  background: #f1f1f1;
+}
+
+.icon-button {
+  display: flex;
+  background: transparent;
+  border: none;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 1rem;
+}
+
+.input-label {
+  font-size: 12px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  margin-bottom: 0.5rem;
+}
