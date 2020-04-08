@@ -19,9 +19,9 @@ export default function RangePicker({
   useEffect(() => {
     const areSame = JSON.stringify(localValue) === JSON.stringify(value)
     if (value && !areSame && value && value instanceof Array) {
-      const date1 = value[0] && new ParserDate(value[0])
-      const date2 = value[value.length - 1] && new ParserDate(value[value.length - 1])
-      const newValue = [date1, date2]
+      const firstDate = value[0] && new ParserDate(value[0])
+      const lastDate = value[value.length - 1] && new ParserDate(value[value.length - 1])
+      const newValue = [firstDate, lastDate]
         .filter((el) => el)
         .map((el) =>
           el.format({
