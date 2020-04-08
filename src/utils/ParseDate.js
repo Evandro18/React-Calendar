@@ -5,7 +5,7 @@ export default class CustomDate extends Date {
   }
 
   format({ dayNames = [], months = [] }) {
-    return `${dayNames[this.getDay()]}, ${months[this.getMonth()]}
+    return `${dayNames[this.getDay()].substr(0, 3)}, ${months[this.getMonth()]}
     ${this.getDate()}`
   }
 

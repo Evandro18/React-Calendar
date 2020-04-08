@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react'
+import PropTypes from 'prop-types'
 import '../../css/styles.css'
 import CalendarHeader from './Header'
 import CalendarDays from './CalendarDays'
@@ -8,8 +9,18 @@ import ParserDate from '../../utils/ParseDate'
 import getMonthsLength from '../../utils/getDaysInMonth'
 import { dayNames, monthNames as months, ENUM_TYPES } from '../../utils/constants'
 
-export default function App({ weekDayNames, monthNames, date, type = 'onlydate' }) {
-  const [dates, setDates] = useState(new Map([[new ParserDate().reset().toJSON(), new ParserDate()]]))
+export default function App({
+  onCancel,
+  onFinish,
+  weekDayNames,
+  monthNames,
+  date,
+  type = 'onlydate',
+  value = []
+}) {
+  const [dates, setDates] = useState(
+    new Map([[new ParserDate().reset().toJSON(), new ParserDate()]])
+  )
   const [currentDate, setDate] = useState(new ParserDate())
   const [month, setMonth] = useState(null)
   const [selectYear, setSelectYear] = useState(false)
@@ -50,6 +61,20 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
     }
   }, [date, setDate, currentDate, buildMonthCallback])
 
+  useEffect(() => {
+    if (value && value.length) {
+      const date1 = new ParserDate(value[0])
+      const date2 = new ParserDate(value[value.length - 1])
+      const mapValues = new Map()
+      const diff = diffInDays(date1, date2)
+      if (date1 && !date2 && newDate && diff >= 1) {
+        const newRange = buildRange(date1, date2)
+        newRange.forEach((el) => upsertDateValues(mapValues, el))
+        setDates(mapValues)
+      }
+    }
+  }, [value])
+
   function onChangeYear(value) {
     const newDate = new ParserDate(currentDate)
     newDate.setFullYear(value)
@@ -80,7 +105,7 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
         let values = new Map()
         let datesCopy = [...dates]
         const [, start] = datesCopy[0] ? datesCopy[0] : []
-        const [, end] = datesCopy.length -1 > 0 ? datesCopy[datesCopy.length -1] : []
+        const [, end] = datesCopy.length - 1 > 0 ? datesCopy[datesCopy.length - 1] : []
         if (start && end) {
           values = upsertDateValues(values, newDate)
           setDates(values)
@@ -91,7 +116,7 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
           newRange.forEach((el) => upsertDateValues(values, el))
           setDates(values)
         }
-        if (diff <= 0){
+        if (diff <= 0) {
           if (!values.get(newDate.reset().toJSON())) {
             values = upsertDateValues(values, newDate)
           }
@@ -104,7 +129,8 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
 
   const buildRange = (startRange, endRange) => {
     let countDays = startRange.getUTCDate()
-    let countMonths = startRange.get('month') < 12 ? startRange.get('month') + 1 : startRange.get('month')
+    let countMonths =
+      startRange.get('month') < 12 ? startRange.get('month') + 1 : startRange.get('month')
     let countYears = startRange.get('year')
     let lastDayOfMonth = getMonthsLength(startRange)
     const qtdRange = diffInDays(startRange, endRange)
@@ -180,6 +206,14 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
           dates={dates}
           onChange={onChangeDate}
         />
+        <div className='footer-buttons'>
+          <button className='button' onClick={onCancel}>
+            Cancel
+          </button>
+          <button className='button' onClick={() => onFinish([...dates])}>
+            OK
+          </button>
+        </div>
       </>
     )
   }
@@ -198,4 +232,10 @@ export default function App({ weekDayNames, monthNames, date, type = 'onlydate' 
       </div>
     </div>
   )
+}
+
+App.propTypes = {
+  type: PropTypes.oneOf(['onlydate', 'selector', 'range']),
+  weekDayNames: PropTypes.arrayOf(PropTypes.string),
+  monthNames: PropTypes.arrayOf(PropTypes.string)
 }
