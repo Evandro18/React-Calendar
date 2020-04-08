@@ -1,12 +1,7 @@
 import App from './components/Calendar'
+import InputCalendar from './components/Input'
 
 export const Calendar = App
+export const RangePicker = InputCalendar
 
-export default { Calendar }
-// const rootElement = document.getElementById('root')
-// ReactDOM.render(
-//   <React.StrictMode>
-//     <App type='range' />
-//   </React.StrictMode>,
-//   rootElement
-// )
+export default { Calendar, RangePicker }
