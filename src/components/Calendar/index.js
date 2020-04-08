@@ -67,7 +67,7 @@ export default function App({
       const date2 = new ParserDate(value[value.length - 1])
       const mapValues = new Map()
       const diff = diffInDays(date1, date2)
-      if (date1 && !date2 && newDate && diff >= 1) {
+      if (date1 && !date2 && diff >= 1) {
         const newRange = buildRange(date1, date2)
         newRange.forEach((el) => upsertDateValues(mapValues, el))
         setDates(mapValues)
