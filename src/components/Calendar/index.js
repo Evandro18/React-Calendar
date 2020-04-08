@@ -4,9 +4,10 @@ import '../../css/styles.css'
 import CalendarHeader from './Header'
 import CalendarDays from './CalendarDays'
 import MonthsSelect from './MonthsSelect'
+import YearSelect from './YearSelect'
 import ParserDate from '../../utils/ParseDate'
 import getMonthsLength from '../../utils/getDaysInMonth'
-import { dayNames, monthNames as months, ENUM_TYPES } from '../../utils/contants'
+import { dayNames, monthNames as months, ENUM_TYPES } from '../../utils/constants'
 
 export default function App({
   onCancel,
@@ -22,6 +23,7 @@ export default function App({
   )
   const [currentDate, setDate] = useState(new ParserDate())
   const [month, setMonth] = useState(null)
+  const [selectYear, setSelectYear] = useState(false)
 
   const buildMonthCallback = useCallback(() => {
     const daysInMonth = getMonthsLength(currentDate)
@@ -73,7 +75,13 @@ export default function App({
     }
   }, [value])
 
-  function onChange(value) {
+  function onChangeYear(value) {
+    const newDate = new ParserDate(currentDate)
+    newDate.setFullYear(value)
+    setDate(newDate)
+  }
+
+  function onChangeMonth(value) {
     const newDate = new ParserDate(currentDate)
     newDate.set('month', value)
     setDate(newDate)
@@ -135,7 +143,7 @@ export default function App({
         countDays = 0
         if (countMonths >= 12) {
           countYears++
-          countMonths = 1
+          countMonths = 0
         }
         if (countMonths < 12) {
           countMonths++
@@ -168,20 +176,25 @@ export default function App({
     return map
   }
 
-  return (
-    <div className='App'>
-      <div className='calendar'>
-        <CalendarHeader
-          currentDate={currentDate}
+  const body = () => {
+    if (selectYear) {
+      return (
+        <YearSelect
           currentYear={currentDate.getFullYear()}
-          dayNames={weekDayNames ? weekDayNames : dayNames}
-          months={monthNames ? monthNames : months}
+          onChange={(value) => {
+            onChangeYear(value)
+            setSelectYear(false)
+          }}
         />
+      )
+    }
+    return (
+      <>
         <MonthsSelect
           currentDate={currentDate}
           currentMonth={currentDate.get('month')}
           months={monthNames ? monthNames : months}
-          onChange={onChange}
+          onChange={onChangeMonth}
         />
         <CalendarDays
           type={type}
@@ -201,6 +214,21 @@ export default function App({
             OK
           </button>
         </div>
+      </>
+    )
+  }
+
+  return (
+    <div className='App'>
+      <div className='calendar'>
+        <CalendarHeader
+          currentDate={currentDate}
+          currentYear={currentDate.getFullYear()}
+          dayNames={weekDayNames ? weekDayNames : dayNames}
+          months={monthNames ? monthNames : months}
+          onClick={() => setSelectYear(true)}
+        />
+        {body()}
       </div>
     </div>
   )

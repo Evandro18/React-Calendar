@@ -3,7 +3,7 @@ import './inputpicker.css'
 import Calendar from '../Calendar'
 import CalendarIcon from '../../icons/Calendar.js'
 import ParserDate from '../../utils/ParseDate'
-import { dayNames, monthNames } from '../../utils/contants'
+import { dayNames, monthNames } from '../../utils/constants'
 
 export default function RangePicker({ placeholder = '', value, label, onChange = () => {} }) {
   const [open, setOpen] = useState(false)
