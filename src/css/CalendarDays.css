@@ -1,6 +1,5 @@
 .calendar-days {
   display: flex;
-  /* width: 100%; */
   box-sizing: border-box;
 }
 
@@ -13,7 +12,8 @@
 .calendar-days-item-spacing-day {
   margin: calc(100% - 98%);
   padding: 0.5rem;
-  min-height: 20px;
+  min-height: 38px;
+  max-height: 38px;
 }
 
 .calendar-days-numbers {

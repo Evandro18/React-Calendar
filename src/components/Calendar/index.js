@@ -207,10 +207,10 @@ export default function App({
           onChange={onChangeDate}
         />
         <div className='footer-buttons'>
-          <button className='button' onClick={onCancel}>
+          <button type='button' className='button' onClick={onCancel}>
             Cancel
           </button>
-          <button className='button' onClick={() => onFinish([...dates])}>
+          <button type='button' className='button' onClick={() => onFinish([...dates])}>
             OK
           </button>
         </div>
