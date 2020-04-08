@@ -41,12 +41,17 @@ export default function RangePicker({ placeholder = '', value, label, onChange =
     return
   }
 
+  const handleOpen = (ev) => {
+    ev.preventDefault()
+    setOpen(true)
+  }
+
   return (
     <div className='container'>
       <span className='input-label'>{label}</span>
-      <div className='content-input'>
-        <input placeholder={placeholder} value={localValue} onChange={onInputChange} />
-        <button className='icon-button' onClick={() => setOpen(true)}>
+      <div className='input-content'>
+        <input type='text' placeholder={placeholder} value={localValue} onChange={onInputChange} />
+        <button type='button' className='icon-button' onClick={handleOpen}>
           <CalendarIcon />
         </button>
       </div>
