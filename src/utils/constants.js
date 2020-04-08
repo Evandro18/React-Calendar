@@ -14,7 +14,7 @@ export const monthNames = [
 ]
 
 export const dayNames = [
-  'Sanday',
+  'Sunday',
   'Monday',
   'Tuesday',
   'Wednesday',
@@ -36,4 +36,4 @@ export const FINAL_YEAR = TODAY.getFullYear() + YEAR_RANGE
 
 export default {
   monthNames
-};
+}
