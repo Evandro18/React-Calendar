@@ -200,7 +200,7 @@ export default function App({
           type={type}
           currentMonth={currentDate.get('month')}
           currentYear={currentDate.getFullYear()}
-          weekDays={dayNames}
+          weekDays={weekDayNames ? weekDayNames : dayNames}
           monthStructure={month || {}}
           currentDate={currentDate}
           dates={dates}
