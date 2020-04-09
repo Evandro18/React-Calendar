@@ -7,13 +7,16 @@ function App() {
   const [type, setType] = useState('')
 
   const typeCalendar = (type) => {
+    const nextDay = new Date()
+    nextDay.setDate(nextDay.getDate() + 3)
+
     switch (type) {
       case 'calendar':
         return <Calendar />
       case 'rangePicker':
-        return <RangePicker label='Select Date' value={[new Date(), new Date('2020-04-13')]} />
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
       default:
-        return <RangePicker label='Select Date' value={[new Date(), new Date('2020-04-13')]} />
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
     }
   }
 

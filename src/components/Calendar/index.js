@@ -63,12 +63,12 @@ export default function App({
 
   useEffect(() => {
     if (value && value.length) {
-      const date1 = new ParserDate(value[0])
-      const date2 = new ParserDate(value[value.length - 1])
+      const firstDate = new ParserDate(value[0])
+      const lastDate = new ParserDate(value[value.length - 1])
       const mapValues = new Map()
-      const diff = diffInDays(date1, date2)
-      if (date1 && !date2 && diff >= 1) {
-        const newRange = buildRange(date1, date2)
+      const diff = diffInDays(firstDate, lastDate)
+      if (firstDate && !lastDate && diff >= 1) {
+        const newRange = buildRange(firstDate, lastDate)
         newRange.forEach((el) => upsertDateValues(mapValues, el))
         setDates(mapValues)
       }
@@ -200,7 +200,7 @@ export default function App({
           type={type}
           currentMonth={currentDate.get('month')}
           currentYear={currentDate.getFullYear()}
-          weekDays={dayNames}
+          weekDays={weekDayNames ? weekDayNames : dayNames}
           monthStructure={month || {}}
           currentDate={currentDate}
           dates={dates}
