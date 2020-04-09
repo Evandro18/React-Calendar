@@ -32,7 +32,7 @@
 }
 
 .calendar {
-  height: 500px;
+  height: auto;
   background-color: white;
   box-shadow: 1px 4px 4px gray;
   box-sizing: border-box;

@@ -1,12 +1,38 @@
-import React from 'react'
-import { RangePicker } from '../../../'
+import React, { useState } from 'react'
+import { Calendar, RangePicker } from '../../../'
+import RadioButton from './components/RadioButton'
+import './style.css'
 
 function App() {
-  const nextDay = new Date()
-  nextDay.setDate(nextDay.getDate() + 3)
+  const [type, setType] = useState('')
+
+  const typeCalendar = (type) => {
+    const nextDay = new Date()
+    nextDay.setDate(nextDay.getDate() + 3)
+
+    switch (type) {
+      case 'calendar':
+        return <Calendar />
+      case 'rangePicker':
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
+      default:
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
+    }
+  }
+
+  const CALENDAR_TYPES = [
+    { name: 'Calendar', value: 'calendar' },
+    { name: 'Range Picker', value: 'rangePicker' }
+  ]
+
   return (
     <div className='App'>
-      <RangePicker label='Select Date' value={[new Date(), nextDay]} />
+      <RadioButton
+        name='typeCalendar'
+        values={CALENDAR_TYPES}
+        onChange={(value) => setType(value)}
+      />
+      <div>{typeCalendar(type)}</div>
     </div>
   )
 }

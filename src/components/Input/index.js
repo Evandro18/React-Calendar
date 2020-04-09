@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import Footer from '../Footer'
+import RangeContext from '../../context/range'
+import { useRange } from '../../hooks/range'
 import './inputpicker.css'
-import Calendar from '../Calendar'
+import CalendarComponent from '../Calendar/CalendarComponent'
 import CalendarIcon from '../../icons/Calendar.js'
 import ParserDate from '../../utils/ParseDate'
 import { dayNames, monthNames } from '../../utils/constants'
@@ -11,10 +14,12 @@ export default function RangePicker({
   placeholder = '',
   value,
   label,
-  onChange = () => {}
+  onChange = () => {},
+  onFinish = () => {}
 }) {
   const [open, setOpen] = useState(false)
   const [localValue, setValue] = useState('')
+  const [dates, setDates] = useRange()
 
   const getFormattedText = (arrayDates) => {
     if (arrayDates.length > 1) {
@@ -50,11 +55,17 @@ export default function RangePicker({
     if (!value) setValue('')
   }, [value])
 
-  const onFinish = (data = []) => {
+  const handleChange = (value) => {
+    if (value instanceof Array) {
+      onChange(value.map(([, item]) => item))
+    }
+  }
+
+  const onConfirm = (data = []) => {
     if (data && data.length) {
       const inputText = getFormattedText(data.map(([, item]) => item))
       setValue(inputText)
-      onChange(data.map(([, dateValue]) => dateValue))
+      onFinish(data.map(([, dateValue]) => dateValue))
     }
     setOpen(false)
   }
@@ -85,14 +96,16 @@ export default function RangePicker({
       </div>
       <div className={!open ? 'display-none' : 'backdrop'}></div>
       <div className={!open ? 'display-none' : 'backdrop-content'}>
-        <Calendar
-          monthNames={monthLabels ? monthLabels : monthNames}
-          weekDayNames={dayLabels ? dayLabels : dayNames}
-          type='range'
-          value={localValue}
-          onCancel={() => setOpen(false)}
-          onFinish={onFinish}
-        />
+        <RangeContext.Provider value={{ dates, setDates }}>
+          <CalendarComponent
+            monthNames={monthLabels ? monthLabels : monthNames}
+            weekDayNames={dayLabels ? dayLabels : dayNames}
+            type='range'
+            value={localValue}
+            onChange={handleChange}
+            footer={<Footer onConfirm={onConfirm} onCancel={() => setOpen(false)} />}
+          />
+        </RangeContext.Provider>
       </div>
     </div>
   )
