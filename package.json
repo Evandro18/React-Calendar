@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "export PORT=5000 && react-scripts start",
-    "build": "NODE_ENV=production BABEL_ENV=production rollup -c",
+    "build": "NODE_ENV=production BABEL_ENV=production rollup -c --watch",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },

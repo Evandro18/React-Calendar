@@ -16,13 +16,11 @@ export default function RangePicker({
   const [open, setOpen] = useState(false)
   const [localValue, setValue] = useState('')
 
-  useEffect(() => {
-    const areSame = JSON.stringify(localValue) === JSON.stringify(value)
-    if (value && !areSame && value && value instanceof Array) {
-      const resetedValues = value.map((el) => new ParserDate(el).reset())
-      const firstDate = resetedValues[0]
-      const lastDate = resetedValues[resetedValues.length - 1]
-      const newValue = [firstDate, lastDate]
+  const getFormattedText = (arrayDates) => {
+    if (arrayDates.length > 1) {
+      const firstDate = arrayDates[0]
+      const lastDate = arrayDates[arrayDates.length - 1]
+      return [firstDate, lastDate]
         .filter((el) => el)
         .map((el) =>
           el.format({
@@ -31,20 +29,31 @@ export default function RangePicker({
           })
         )
         .join(' - ')
-      setValue(newValue)
+    }
+    if (arrayDates[0]) {
+      return arrayDates[0].format({
+        dayNames: dayLabels ? dayLabels : dayNames,
+        months: monthLabels ? monthLabels : monthNames
+      })
+    }
+    return ''
+  }
+
+  useEffect(() => {
+    const areSame = JSON.stringify(localValue) === JSON.stringify(value)
+    if (value && !areSame && value && value instanceof Array) {
+      const resetedValues = value.map((el) => new ParserDate(el).reset())
+      const inputText = getFormattedText(resetedValues)
+
+      setValue(inputText)
     }
     if (!value) setValue('')
   }, [value])
 
   const onFinish = (data = []) => {
     if (data && data.length) {
-      const [, firstDate] = data[0]
-      const [, lastDate] = data[data.length - 1]
-      const newValue = `${new ParserDate(firstDate).format({
-        dayNames,
-        months: monthNames
-      })} - ${new ParserDate(lastDate).format({ dayNames, months: monthNames })}`
-      setValue(newValue)
+      const inputText = getFormattedText(data.map(([, item]) => item))
+      setValue(inputText)
       onChange(data.map(([, dateValue]) => dateValue))
     }
     setOpen(false)
