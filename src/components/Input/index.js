@@ -72,7 +72,13 @@ export default function RangePicker({
     <div className='container'>
       <span className='input-label'>{label}</span>
       <div className='input-content'>
-        <input type='text' placeholder={placeholder} value={localValue} onChange={onInputChange} />
+        <input
+          type='text'
+          placeholder={placeholder}
+          value={localValue}
+          onChange={onInputChange}
+          onClick={handleOpen}
+        />
         <button type='button' className='icon-button' onClick={handleOpen}>
           <CalendarIcon />
         </button>
