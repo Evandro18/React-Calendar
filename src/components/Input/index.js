@@ -15,7 +15,8 @@ export default function RangePicker({
   value,
   label,
   onChange = () => {},
-  onFinish = () => {}
+  onFinish = () => {},
+  format = 'dd/mm/YYYY'
 }) {
   const [open, setOpen] = useState(false)
   const [localValue, setValue] = useState('')
@@ -30,13 +31,15 @@ export default function RangePicker({
         .map((el) =>
           el.format({
             dayNames: dayLabels ? dayLabels : dayNames,
-            months: monthLabels ? monthLabels : monthNames
+            months: monthLabels ? monthLabels : monthNames,
+            format
           })
         )
         .join(' - ')
     }
     if (arrayDates[0]) {
       return arrayDates[0].format({
+        format,
         dayNames: dayLabels ? dayLabels : dayNames,
         months: monthLabels ? monthLabels : monthNames
       })
