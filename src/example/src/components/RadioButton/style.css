@@ -1,26 +1,22 @@
 .type-calendar {
   width: 100%;
+  height: 480px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  margin-bottom: 20px;
-  padding: 20px;
 }
 
 .type-calendar > label {
-  width: 100px;
+  width: 200px;
+  height: 30px;
   text-align: initial;
   position: relative;
-}
-
-.type-calendar > label:nth-child(n + 2):nth-child(n) {
-  margin-left: 5%;
 }
 
 .type-calendar input {
   width: 15%;
   position: absolute;
-  left: -25%;
-  top: -5%;
+  left: -15%;
 }
