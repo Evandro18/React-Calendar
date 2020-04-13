@@ -13,6 +13,10 @@ function App() {
     switch (type) {
       case 'calendar':
         return <Calendar />
+      case 'calendarRange':
+        return <Calendar type='range' />
+      case 'calendarSelector':
+        return <Calendar type='selector' />
       case 'rangePicker':
         return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
       default:
@@ -22,6 +26,8 @@ function App() {
 
   const CALENDAR_TYPES = [
     { name: 'Calendar', value: 'calendar' },
+    { name: 'Calendar Range', value: 'calendarRange' },
+    { name: 'Calendar Selector', value: 'calendarSelector' },
     { name: 'Range Picker', value: 'rangePicker' }
   ]
 
@@ -32,7 +38,7 @@ function App() {
         values={CALENDAR_TYPES}
         onChange={(value) => setType(value)}
       />
-      <div>{typeCalendar(type)}</div>
+      <div className='calendar-box'>{typeCalendar(type)}</div>
     </div>
   )
 }
