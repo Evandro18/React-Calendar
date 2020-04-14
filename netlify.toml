@@ -1,0 +1,4 @@
+[build]
+  base = "src/example/"
+  publish = "build/"
+  command = "echo running deploy && npm run build"
