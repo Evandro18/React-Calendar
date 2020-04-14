@@ -1,0 +1,14 @@
+.App {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 700px;
+}
+
+.calendar-box {
+  display: flex;
+  align-items: center;
+  min-width: 300px;
+  min-height: 500px;
+}

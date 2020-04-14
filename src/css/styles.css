@@ -5,11 +5,11 @@
   width: fit-content;
   margin: 0 auto;
   -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-      -khtml-user-select: none; /* Konqueror HTML */
-        -moz-user-select: none; /* Old versions of Firefox */
-        -ms-user-select: none; /* Internet Explorer/Edge */
-            user-select: none; /* Non-prefixed version, currently
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Opera and Firefox */
 }
 
@@ -19,8 +19,20 @@
   }
 }
 
+@media only screen and (min-width: 1300px) {
+  .calendar {
+    width: 28rem;
+  }
+}
+
+@media only screen and (min-width: 650px) and (max-width: 1299px) {
+  .calendar {
+    width: 25rem;
+  }
+}
+
 .calendar {
-  height: 500px;
+  height: auto;
   background-color: white;
   box-shadow: 1px 4px 4px gray;
   box-sizing: border-box;
@@ -70,4 +82,17 @@
 
 .flex-grow-1 {
   flex-grow: 1;
+}
+
+.footer-buttons {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 1rem;
+}
+
+.button {
+  background: transparent;
+  color: #306c34;
+  border: none;
 }

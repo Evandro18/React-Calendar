@@ -1,0 +1,27 @@
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 0 0 0;
+}
+
+.year p {
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 10px;
+  align-items: center;
+  font-weight: 400;
+  transition: font-size 0.1s;
+}
+
+.selected p {
+  font-size: 1.5rem;
+  color: #306c34;
+  font-weight: 500;
+}
+
+.year p:hover {
+  color: #306c34;
+  font-size: 1.5rem;
+}
