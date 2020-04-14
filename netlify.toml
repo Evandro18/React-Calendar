@@ -1,0 +1,4 @@
+[build]
+base = "src/example/"
+publish = “src/example/build”
+command = "echo running deploy"
