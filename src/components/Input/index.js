@@ -32,14 +32,14 @@ export default function RangePicker({
           el.format({
             dayNames: dayLabels ? dayLabels : dayNames,
             months: monthLabels ? monthLabels : monthNames,
-            format
+            pattern: format
           })
         )
         .join(' - ')
     }
     if (arrayDates[0]) {
       return arrayDates[0].format({
-        format,
+        pattern: format,
         dayNames: dayLabels ? dayLabels : dayNames,
         months: monthLabels ? monthLabels : monthNames
       })
