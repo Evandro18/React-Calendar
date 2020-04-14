@@ -16,7 +16,8 @@ export default function RangePicker({
   label,
   onChange = () => {},
   onFinish = () => {},
-  format = 'dd/mm/YYYY'
+  format = 'dd/mm/YYYY',
+  buttonLabels = { cancel: 'Cancel', confirm: 'Ok' }
 }) {
   const [open, setOpen] = useState(false)
   const [localValue, setValue] = useState('')
@@ -106,7 +107,13 @@ export default function RangePicker({
             type='range'
             value={localValue}
             onChange={handleChange}
-            footer={<Footer onConfirm={onConfirm} onCancel={() => setOpen(false)} />}
+            footer={
+              <Footer
+                buttonLabels={buttonLabels}
+                onConfirm={onConfirm}
+                onCancel={() => setOpen(false)}
+              />
+            }
           />
         </RangeContext.Provider>
       </div>
