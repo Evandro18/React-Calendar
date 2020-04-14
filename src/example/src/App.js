@@ -4,7 +4,7 @@ import RadioButton from './components/RadioButton'
 import './style.css'
 
 function App() {
-  const [type, setType] = useState('')
+  const [type, setType] = useState('rangePicker')
 
   const typeCalendar = (type) => {
     const nextDay = new Date()
@@ -18,9 +18,9 @@ function App() {
       case 'calendarSelector':
         return <Calendar type='selector' />
       case 'rangePicker':
-        return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} format='dd/mm/YYYY' />
       default:
-        return <RangePicker label='Select Date' value={[new Date(), nextDay]} />
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} format='dd/mm/YYYY' />
     }
   }
 
@@ -34,8 +34,9 @@ function App() {
   return (
     <div className='App'>
       <RadioButton
+        value={type}
         name='typeCalendar'
-        values={CALENDAR_TYPES}
+        options={CALENDAR_TYPES}
         onChange={(value) => setType(value)}
       />
       <div className='calendar-box'>{typeCalendar(type)}</div>
