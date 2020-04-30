@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../../css/styles.css'
+import '../../../css/custom-calendar-styles.css'
 import ParseDate from '../../../utils/ParseDate'
 
 export default function CalendarHeader({ currentYear, currentDate, dayNames, months, onClick }) {
