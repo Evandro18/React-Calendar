@@ -1,6 +1,6 @@
 {
   "name": "custom-material-calendar",
-  "version": "1.0.0",
+  "version": "alpha-0.1",
   "description": "",
   "keywords": [],
   "main": "dist/index.js",

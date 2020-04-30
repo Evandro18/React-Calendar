@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react'
 import RangeContext from '../../../context/range'
 import PropTypes from 'prop-types'
-import '../../../css/styles.css'
+import '../../../css/custom-calendar-styles.css'
 import CalendarHeader from '../Header'
 import CalendarDays from '../CalendarDays'
 import MonthsSelect from '../MonthsSelect'
