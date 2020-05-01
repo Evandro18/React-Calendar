@@ -1,9 +1,13 @@
 {
   "name": "custom-material-calendar",
-  "version": "1.0.13",
+  "version": "1.0.14",
   "description": "",
   "keywords": [],
-  "repository": "https://github.com/Evandro18/React-Calendar.git",
+  "homepage": "https://custom-material-date-picker.netlify.app/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Evandro18/React-Calendar.git"
+  },
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",

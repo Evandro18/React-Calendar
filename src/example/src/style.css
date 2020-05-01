@@ -1,5 +1,13 @@
-.example-app {
+.example-app-container {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.flex-column {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -16,7 +24,7 @@
   min-height: 500px;
 }
 
-.backdrop, .backdrop-content {
+.backdrop .backdrop-content {
   display: flex;
   align-items: center;
   justify-content: center;
