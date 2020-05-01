@@ -1,5 +1,5 @@
 import React from 'react'
-import './custom-calendar-styles.css'
+import './styles.css'
 
 export default function Button(props) {
   return (
