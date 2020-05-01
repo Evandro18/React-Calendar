@@ -3,6 +3,7 @@
   "version": "1.0.12",
   "description": "",
   "keywords": [],
+  "repository": "https://github.com/Evandro18/React-Calendar.git",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
