@@ -19,7 +19,7 @@ function App() {
       case 'calendarSelector':
         return <Calendar type='selector' />
       case 'rangePicker':
-        return <RangePicker label='Select Date' value={[new Date(), nextDay]} format='YYYY/dd/mm' />
+        return <RangePicker label='Select Date' value={[new Date(), nextDay]} format='YYYY/dd/mm'  />
       default:
         return <RangePicker label='Select Date' value={[new Date(), nextDay]} format='YYYY/dd/mm' />
     }

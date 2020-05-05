@@ -49,11 +49,11 @@ export default class CustomDate extends Date {
     const formatted = format
       .map((el) => {
         const method = dateMethods[el]
+        if (el.includes('mm')){
+          return Number(this[method]()) + 1
+        }
         if (el.match(/[A-Z]/) && !el.includes('YYYY')) {
           return this.getFormatString(el, method, dayNames, months)
-        }
-        if (el.match(/[A-Z]/) && el.includes('mm')){
-          return Number(this[method]()) + 1
         }
         if (method) return this[method]()
         return el
