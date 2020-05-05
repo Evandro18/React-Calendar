@@ -3,7 +3,7 @@ import '../../../css/custom-calendar-styles.css'
 import ParseDate from '../../../utils/ParseDate'
 
 export default function CalendarHeader({ currentYear, currentDate, dayNames, months, onClick }) {
-  const formattedDate = new ParseDate(currentDate).format({ dayNames, months })
+  const formattedDate = new ParseDate(currentDate).format({ dayNames, months, pattern: 'EE, MM YYYY' })
   return (
     <>
       <div className='header'>
