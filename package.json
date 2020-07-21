@@ -1,7 +1,7 @@
 {
   "name": "custom-material-calendar",
   "version": "1.0.19",
-  "description": "",
+  "description": "Simple calendar with range",
   "keywords": [],
   "homepage": "https://custom-material-date-picker.netlify.app/",
   "repository": {
