@@ -17,7 +17,7 @@ export default function App({
   type = 'onlydate',
   value = [],
   footer,
-  onChange = () => {}
+  onChange = () => { }
 }) {
   const { dates, setDates } = useContext(RangeContext)
   const [currentDate, setDate] = useState(new ParserDate())
@@ -28,9 +28,15 @@ export default function App({
     const daysInMonth = getMonthsLength(currentDate)
     const tempDate = new ParserDate(currentDate)
     tempDate.set('date', 1)
-    const firstWeekDayOfMonth = tempDate.get('day') + 1
     const weekLength = 7
-    const qtdWeek = Math.ceil(daysInMonth / weekLength)
+    const firstWeekDayOfMonth = tempDate.get('day') + 1
+    const firstWeekLength = weekLength - (weekLength - firstWeekDayOfMonth)
+    tempDate.set('date', daysInMonth)
+    const lastDay = tempDate.get('day') + 1
+    const lastWeekLength = weekLength - (weekLength - lastDay)
+    const seila = daysInMonth - (lastWeekLength + firstWeekLength)
+
+    const qtdWeek = Math.ceil(seila / weekLength) + ((firstWeekLength > 0 ? 1 : 0) + (lastWeekLength > 0 ? 1 : 0))
     const weeks = [...new Array(qtdWeek)].map((_, i) => i + 1)
     const daysByWeek = [...new Array(weekLength)].map((_, i) => i + 1)
     let count = 1
@@ -38,10 +44,12 @@ export default function App({
     for (const weekIndex of weeks) {
       // eslint-disable-next-line
       const currentWeek = daysByWeek.reduce((acc, dayIndex) => {
-        if (dayIndex >= firstWeekDayOfMonth && !generateMonth) {
+        if (dayIndex === firstWeekDayOfMonth && !generateMonth) {
           generateMonth = {}
           if (!generateMonth[weekIndex]) generateMonth[weekIndex] = {}
           acc[dayIndex] = count
+          count++
+          return acc
         }
         if (count <= daysInMonth && generateMonth) {
           if (!generateMonth[weekIndex]) generateMonth[weekIndex] = {}
@@ -84,7 +92,6 @@ export default function App({
     const newDate = new ParserDate(currentDate)
     newDate.set('month', value)
     setDate(newDate)
-    buildMonthCallback()
   }
 
   const onChangeDate = (value) => () => {
@@ -203,7 +210,7 @@ export default function App({
           currentMonth={currentDate.get('month')}
           currentYear={currentDate.getFullYear()}
           weekDays={weekDayNames ? weekDayNames : dayNames}
-          monthStructure={month || {}}
+          monthStructure={month}
           currentDate={currentDate}
           dates={dates}
           onChange={onChangeDate}

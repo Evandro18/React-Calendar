@@ -36,6 +36,7 @@
   background-color: white;
   box-shadow: 1px 4px 4px gray;
   box-sizing: border-box;
+  border-radius: 3px;
 }
 
 .header {
@@ -44,6 +45,8 @@
   background: #306c34;
   color: #fafafa;
   flex-wrap: wrap;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
 }
 
 .header-container {
