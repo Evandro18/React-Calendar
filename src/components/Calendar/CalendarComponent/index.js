@@ -97,7 +97,7 @@ export default function App({
 
   const onChangeDate = (value) => () => {
     if (value) {
-      const newDate = new ParserDate(currentDate)
+      const newDate = new ParserDate(showDate)
       newDate.set('date', value)
       if (ENUM_TYPES[type] === ENUM_TYPES.onlydate) {
         setDate(newDate)
@@ -155,7 +155,7 @@ export default function App({
     let count = 0
     while (count < [...new Array(qtdRange + 1)].length) {
       const strCountDays = String(countDays).length === 1 ? `0${countDays}` : countDays
-      const dateToReturn = new ParserDate(`${countYears}-${countMonths}-${strCountDays}  00:00:00`)
+      const dateToReturn = new ParserDate(`${countYears}-${countMonths}-${strCountDays}  00:00:00:00`)
       if (countDays >= lastDayOfMonth) {
         countDays = 0
         if (countMonths >= 12) {
