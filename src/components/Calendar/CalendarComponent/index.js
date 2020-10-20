@@ -21,12 +21,13 @@ export default function App({
 }) {
   const { dates, setDates } = useContext(RangeContext)
   const [currentDate, setDate] = useState(new ParserDate())
+  const [showDate, setShowDate] = useState(new ParserDate())
   const [month, setMonth] = useState(null)
   const [selectYear, setSelectYear] = useState(false)
 
   const buildMonthCallback = useCallback(() => {
-    const daysInMonth = getMonthsLength(currentDate)
-    const tempDate = new ParserDate(currentDate)
+    const daysInMonth = getMonthsLength(showDate)
+    const tempDate = new ParserDate(showDate)
     tempDate.set('date', 1)
     const weekLength = 7
     const firstWeekDayOfMonth = tempDate.get('day') + 1
@@ -60,7 +61,7 @@ export default function App({
       generateMonth[weekIndex] = currentWeek
     }
     setMonth(generateMonth)
-  }, [currentDate])
+  }, [showDate])
 
   useEffect(() => {
     if (!date) {
@@ -83,15 +84,15 @@ export default function App({
   }, [value])
 
   function onChangeYear(value) {
-    const newDate = new ParserDate(currentDate)
+    const newDate = new ParserDate(showDate)
     newDate.setFullYear(value)
-    setDate(newDate)
+    setShowDate(newDate)
   }
 
   function onChangeMonth(value) {
-    const newDate = new ParserDate(currentDate)
+    const newDate = new ParserDate(showDate)
     newDate.set('month', value)
-    setDate(newDate)
+    setShowDate(newDate)
   }
 
   const onChangeDate = (value) => () => {
@@ -100,13 +101,16 @@ export default function App({
       newDate.set('date', value)
       if (ENUM_TYPES[type] === ENUM_TYPES.onlydate) {
         setDate(newDate)
+        setShowDate(newDate)
         onChange(newDate)
       }
       if (ENUM_TYPES[type] === ENUM_TYPES.selector) {
         setDate(newDate)
+        setShowDate(newDate)
         let values = new Map([...dates])
         values = upsertDateValues(values, newDate)
         setDates(values)
+        setShowDate(values)
         onChange(values)
       }
       if (ENUM_TYPES[type] === ENUM_TYPES.range) {
@@ -117,22 +121,26 @@ export default function App({
         if (start && end) {
           values = upsertDateValues(values, newDate)
           setDates(values)
+          setShowDate(values)
         }
         const diff = diffInDays(start, newDate)
         if (start && !end && newDate && diff >= 1) {
           const newRange = buildRange(start, newDate)
           newRange.forEach((el) => upsertDateValues(values, el))
           setDates(values)
+          setShowDate(values)
         }
         if (diff <= 0) {
           if (!values.get(newDate.reset().toJSON())) {
             values = upsertDateValues(values, newDate)
           }
           setDates(values)
+          setShowDate(values)
         }
         onChange([...values])
       }
       setDate(newDate)
+      setShowDate(newDate)
     }
   }
 
@@ -189,7 +197,7 @@ export default function App({
     if (selectYear) {
       return (
         <YearSelect
-          currentYear={currentDate.getFullYear()}
+          currentYear={showDate.getFullYear()}
           onChange={(value) => {
             onChangeYear(value)
             setSelectYear(false)
@@ -200,8 +208,8 @@ export default function App({
     return (
       <>
         <MonthsSelect
-          currentDate={currentDate}
-          currentMonth={currentDate.get('month')}
+          currentDate={showDate}
+          currentMonth={showDate.get('month')}
           months={monthNames ? monthNames : months}
           onChange={onChangeMonth}
         />
@@ -212,6 +220,7 @@ export default function App({
           weekDays={weekDayNames ? weekDayNames : dayNames}
           monthStructure={month}
           currentDate={currentDate}
+          showDate={showDate}
           dates={dates}
           onChange={onChangeDate}
         />
@@ -224,7 +233,7 @@ export default function App({
       <div className='calendar'>
         <CalendarHeader
           currentDate={currentDate}
-          currentYear={currentDate.getFullYear()}
+          showYear={showDate.getFullYear()}
           dayNames={weekDayNames ? weekDayNames : dayNames}
           months={monthNames ? monthNames : months}
           onClick={() => setSelectYear(true)}
