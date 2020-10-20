@@ -43,7 +43,7 @@ function App() {
         />
         <div className='calendar-box'>{typeCalendar(type)}</div>
       </div>
-      <a href='https://github.com/Evandro18/React-Calendar' target="_blank"><img height={100} width='auto' src={Octocat} alt="GitHub" /></a>
+      <a href='https://github.com/Evandro18/React-Calendar' target="_blank" rel="noopener noreferrer"><img height={100} width='auto' src={Octocat} alt="GitHub" /></a>
     </div>
   )
 }
