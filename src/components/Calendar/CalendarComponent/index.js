@@ -110,7 +110,6 @@ export default function App({
         let values = new Map([...dates])
         values = upsertDateValues(values, newDate)
         setDates(values)
-        setShowDate(values)
         onChange(values)
       }
       if (ENUM_TYPES[type] === ENUM_TYPES.range) {
@@ -121,21 +120,18 @@ export default function App({
         if (start && end) {
           values = upsertDateValues(values, newDate)
           setDates(values)
-          setShowDate(values)
         }
         const diff = diffInDays(start, newDate)
         if (start && !end && newDate && diff >= 1) {
           const newRange = buildRange(start, newDate)
           newRange.forEach((el) => upsertDateValues(values, el))
           setDates(values)
-          setShowDate(values)
         }
         if (diff <= 0) {
           if (!values.get(newDate.reset().toJSON())) {
             values = upsertDateValues(values, newDate)
           }
           setDates(values)
-          setShowDate(values)
         }
         onChange([...values])
       }

@@ -15,8 +15,8 @@ export default function CalendarDays({
 }) {
 
   const buildDate = (day) => {
-    if (day && currentMonth === showDate.get('month') && currentYear === showDate.getFullYear()) {
-      const currentDay = new ParserDate(`${currentYear}-${currentMonth + 1}-${day} 00:00:00:00`)
+    if (day) {
+      const currentDay = new ParserDate(`${showDate.getFullYear()}-${showDate.get('month') + 1}-${day} 00:00:00:00`)
       return currentDay
     }
     return new ParserDate()
