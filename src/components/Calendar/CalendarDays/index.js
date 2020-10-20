@@ -6,6 +6,7 @@ export default function CalendarDays({
   currentYear,
   currentMonth,
   currentDate,
+  showDate,
   weekDays = [],
   monthStructure = {},
   dates = new Map(),
@@ -14,7 +15,7 @@ export default function CalendarDays({
 }) {
 
   const buildDate = (day) => {
-    if (day) {
+    if (day && currentMonth === showDate.get('month') && currentYear === showDate.getFullYear()) {
       const currentDay = new ParserDate(`${currentYear}-${currentMonth + 1}-${day} 00:00:00`)
       return currentDay
     }
@@ -31,7 +32,11 @@ export default function CalendarDays({
       const jsonDate = buildDate(day).toJSON()
 
       const validations = {
-        onlydate: () => day === currentDate.get('date'),
+        onlydate: () => (
+          day === currentDate.get('date') &&
+          currentMonth === showDate.get('month') &&
+          currentYear == showDate.getFullYear()
+        ) ,
         range: () => day && dates.get(jsonDate),
         selector: () => day && dates.get(jsonDate)
       }
